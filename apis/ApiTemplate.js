@@ -23,7 +23,11 @@ const ApiTemplate = {
 
         if (body) {
             try {
-                result = await instance[method](url, body, authorizationHeader)
+                if (method === "delete") {
+                    result = await instance.delete(url, { ...authorizationHeader, data: body })
+                } else {
+                    result = await instance[method](url, body, authorizationHeader)
+                }
             } catch (e) {
                 if (e.response.status === 401 && e.message === EXPIRED_ACCESS_TOKEN) {
                 }

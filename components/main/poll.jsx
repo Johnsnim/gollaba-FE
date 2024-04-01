@@ -20,14 +20,6 @@ export default function Poll(props) {
     const [favoriteId, setFavoriteId] = useState([])
     const [cookies, setCookies, removeCookies] = useCookies([])
 
-    if (favoriteId.includes(data.id)) {
-        console.log("포함")
-    } else {
-        console.log("미포함", favoriteId.includes(data.id))
-        console.log(favoriteId)
-        console.log(data.id)
-    }
-
     const date = new Date(props.data.endAt)
     const strDate = date.toISOString().substring(0, 10).split("-")
     const today = new Date()
@@ -81,19 +73,19 @@ export default function Poll(props) {
             console.log("로그 3")
             const favoriteSend = await ApiGateway.makeFavorite(payload, token)
 
-            setFavoriteId(favoriteSend?.favoritesId)
+            setFavoriteId((prev) => [...prev, data.id])
             return
         }
         console.log("로그 4")
 
-        const favoriteDelete = await ApiGateway.deleteFavorite(favoriteId, token)
+        const favoriteDelete = await ApiGateway.deleteFavorite(payload, token)
 
         if (favoriteDelete?.error === true) {
             // fail
             alert(favoriteDelete.message)
             return
         }
-        setFavoriteId(null)
+        setFavoriteId((prev) => prev.filter((id) => id !== data.id))
     }
 
     return (

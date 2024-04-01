@@ -30,7 +30,7 @@ const theme = createTheme({
 
 export default function Polls() {
     const router = useRouter()
-    let response
+    let response, readCountUp
     const { pollId } = router.query
     const [selected, setSelected] = useState([])
     const [polls, setPolls] = useState([])
@@ -41,7 +41,10 @@ export default function Polls() {
     }
 
     const readCount = async () => {
-        response = await ApiGateway.readCount(pollId)
+        if (localStorage.getItem("accessToken") !== null) {
+            response = await ApiGateway.readCount(pollId)
+            console.log("됐나요~?!?#!@?#??~!@?!@#")
+        }
     }
 
     useEffect(() => {

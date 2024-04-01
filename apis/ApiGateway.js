@@ -36,8 +36,7 @@ const ApiGateway = {
 
     // Favorites Controller
     makeFavorite: async (payload, token) => ApiTemplate.sendApi(MethodType.POST, `v2/favorites`, payload, token),
-    deleteFavorite: async (favoritesId, token) =>
-        ApiTemplate.sendApi(MethodType.DELETE, `v2/favorites/${favoritesId}`, null, token),
+    deleteFavorite: async (payload, token) => ApiTemplate.sendApi(MethodType.DELETE, `v2/favorites`, payload, token),
     getFavorites: async (token) => ApiTemplate.sendApi(MethodType.GET, `v2/favorites/me`, null, token),
     // Poll Controller
     createPoll: async (payload, token) => ApiTemplate.sendApiMultiPart(MethodType.POST, "/v2/polls", payload, token),
@@ -62,7 +61,7 @@ const ApiGateway = {
     showUser: async (userId, token) => ApiTemplate.sendApi(MethodType.GET, `/v2/users/me`, null, token),
     updateForm: async (formData, token) =>
         ApiTemplate.sendApiMultiPart(MethodType.POST, `v1/users/update`, formData, token),
-    readCount: async (pollId) => ApiTemplate.sendApiMultiPart(MethodType.POST, `/v1/polls/${pollId}/read-count`),
+    readCount: async (pollId) => ApiTemplate.sendApiMultiPart(MethodType.POST, `/v2/polls/${pollId}/read`),
 }
 
 export default ApiGateway
