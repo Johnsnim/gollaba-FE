@@ -37,7 +37,7 @@ export default function Voting() {
 
     const getData = async () => {
         response = await ApiGateway.getPoll(pollId)
-        setPolls(response)
+        setPolls(response.data)
     }
 
     const readCount = async () => {

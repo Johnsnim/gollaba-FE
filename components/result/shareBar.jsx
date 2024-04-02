@@ -28,7 +28,9 @@ export default function ShareBar(props) {
         alert("클립보드에 복사되었습니다.")
     }
 
-    const newOptions = props.data.data.items.slice(0, 3).map((option) => ({
+    console.log("프롭스>>", props)
+
+    const newOptions = props.data.items.slice(0, 3).map((option) => ({
         title: option.description,
         description: "",
         imageUrl: typeof option.imageUrl === "string" ? option.imageUrl : defaultImageUrl,

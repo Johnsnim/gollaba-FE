@@ -6,13 +6,12 @@ import defaultImage from "../../public/defaultImage.png"
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } }
 export default function Option(props) {
-    console.log("전체프롭스", props)
-
-    console.log("옵션프롭스", props.data)
     const data = props.data
     const voted = props.voted
-    const totalVoteCount = props.totalVoteCount
-    const ratio = (props.data.voters.length / totalVoteCount) * 100
+    let totalVoteCount = props.data.votingCount
+    if (totalVoteCount === undefined) totalVoteCount = 10
+
+    const ratio = (props.voted.length / totalVoteCount) * 100
 
     return (
         <Box
@@ -82,7 +81,7 @@ export default function Option(props) {
                         pt: 2,
                     }}
                 >
-                    ({props.data.voters.length}명)
+                    ({props.voted.length}명)
                 </Box>
             </Box>
         </Box>

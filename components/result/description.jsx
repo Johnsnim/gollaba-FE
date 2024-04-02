@@ -5,8 +5,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } }
 export default function Description(props) {
-    const data = props.data.data
-
+    const data = props.data
     const strDate = data.endAt.substring(0, 10).split("-")
 
     return (

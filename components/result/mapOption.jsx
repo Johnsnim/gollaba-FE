@@ -3,7 +3,7 @@ import Option from "./option"
 
 const MapOption = (props) => {
     console.log("ㅍㄽ", props)
-    const data = props.data.data.items
+    const data = props.data.items
     const voted = props.voted
 
     if (!data) return <></>
