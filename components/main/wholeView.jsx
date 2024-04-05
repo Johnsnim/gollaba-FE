@@ -32,7 +32,7 @@ export default function WholeView({ data, favorites }) {
     const getData = async () => {
         if (totalCount !== 0 && offset * 15 >= totalCount) return
         setIsLoading(true)
-        response = await ApiGateway.getPolls(offset, limit, cookies.accessToken)
+        response = await ApiGateway.getPolls(offset, limit, null)
         setPolls([...polls, ...response.data.items])
         setTotalCount(response.totalCount)
         setIsLoading(false)

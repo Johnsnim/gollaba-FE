@@ -24,7 +24,7 @@ export default function CreateBtn(props) {
         const { uid } = jwt_decode(token)
 
         const payload = {
-            pollId: router.query.pollId,
+            pollHashId: router.query.pollId,
             pollItemIds: props.voted,
             userId: uid,
             voterName: nickname.length !== 0 ? nickname : "익명",

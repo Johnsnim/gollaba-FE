@@ -53,7 +53,8 @@ const ApiGateway = {
     vote: async (payload, token) => ApiTemplate.sendApi(MethodType.POST, `/v2/voting`, payload, token),
     updatePoll: async (pollId, payload, token) =>
         ApiTemplate.sendApi(MethodType.POST, `v1/polls/${pollId}/update`, payload, token),
-    myPolls: async (token) => ApiTemplate.sendApi(MethodType.GET, `/v1/polls/me`, null, token),
+    getMyPolls: async (page, limit, token) =>
+        ApiTemplate.sendApi(MethodType.GET, `/v2/polls/me?page=${page}&size=${limit}`, null, token),
     topPolls: async (token) => ApiTemplate.sendApi(MethodType.GET, `/v1/polls/top`, null, token),
     trendingPolls: async (token) => ApiTemplate.sendApi(MethodType.GET, `/v1/polls/trending`, null, token),
     // User Controller

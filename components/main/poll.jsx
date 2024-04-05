@@ -60,9 +60,6 @@ export default function Poll(props) {
         const hashId = data?.id
         const payload = { pollHashId: hashId }
         const token = localStorage.getItem("accessToken")
-        console.log("로그 1")
-        console.log("로그 2", payload)
-        console.log("들어가는 값은 ", hashId)
 
         if (token === null) {
             alert("로그인 이후에 사용할 수 있는 기능입니다.")
