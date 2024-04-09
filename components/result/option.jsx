@@ -79,9 +79,10 @@ export default function Option(props) {
                         fontSize: 13,
                         flex: 0.2,
                         pt: 2,
+                        minWidth: "100px",
                     }}
                 >
-                    ({props.voted.length}명)
+                    ({data.votingCount}명)
                 </Box>
             </Box>
         </Box>

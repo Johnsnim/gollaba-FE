@@ -67,13 +67,11 @@ export default function Poll(props) {
         }
 
         if (favoriteId !== null && !favoriteId.includes(data.id)) {
-            console.log("로그 3")
             const favoriteSend = await ApiGateway.makeFavorite(payload, token)
 
             setFavoriteId((prev) => [...prev, data.id])
             return
         }
-        console.log("로그 4")
 
         const favoriteDelete = await ApiGateway.deleteFavorite(payload, token)
 

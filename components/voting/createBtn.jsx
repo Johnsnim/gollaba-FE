@@ -6,6 +6,9 @@ import { CookiesProvider, useCookies } from "react-cookie"
 import jwt_decode from "jwt-decode"
 import ApiGateway from "../../apis/ApiGateway"
 import { useRouter } from "next/router"
+import Modal from "@mui/material/Modal"
+import Typography from "@mui/material/Typography"
+import Button from "@mui/material/Button"
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } }
 
@@ -13,6 +16,7 @@ export default function CreateBtn(props) {
     console.log(props)
     const router = useRouter()
     const [nickname, setNickname] = useState("")
+    const [handleModalOpen, setHandleModalOpen] = useState(false)
 
     console.log("라우터", router.query.pollId)
     const nicknameChanged = (event) => {
@@ -38,9 +42,35 @@ export default function CreateBtn(props) {
             }
             return
         }
-        router.push("/result/" + props.pollId)
+        if (response?.status === "ALREADY_VOTING") {
+            setHandleModalOpen(true)
+        }
+        //router.push("/result/" + props.pollId)
     }
 
+    const yesbtnClicked = async () => {
+        const token = getToken()
+        const { uid } = jwt_decode(token)
+
+        const payload = {
+            pollItemIds: props.voted,
+            voterName: nickname.length !== 0 ? nickname : "익명",
+        }
+
+        const response = await ApiGateway.voteEdit(router.query.pollId, payload, token)
+        if (response?.error) {
+            alert(response.message)
+            if (response.code === 20004) {
+                // router.push("/result/" + props.pollId)
+            }
+            return
+        }
+        //router.push("/result/" + props.pollId)
+    }
+
+    const NobtnClicked = async () => {
+        router.push("/result/" + props.pollId)
+    }
     return (
         <Box
             sx={{
@@ -94,6 +124,45 @@ export default function CreateBtn(props) {
             >
                 투표하기
             </Box>
+
+            <Modal
+                open={handleModalOpen}
+                //onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}
+            >
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        backgroundColor: "white",
+                        flexDirection: "column",
+                        width: 500,
+                        height: 250,
+                        borderRadius: 3,
+                        boxShadow: 10,
+                    }}
+                >
+                    <Typography sx={{ fontSize: 23 }}>⚠️잠깐만요! </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        예전에 투표했던 기록이 있어요. 기존의 투표 내역을 갱신할까요?
+                    </Typography>
+                    <Box sx={{ mt: 2, display: "flex", gap: 2 }}>
+                        <Button variant="contained" onClick={yesbtnClicked}>
+                            예, 갱신해주세요.
+                        </Button>
+                        <Button variant="outlined" onClick={NobtnClicked}>
+                            아니오, 기존대로 유지할게요.
+                        </Button>
+                    </Box>
+                </Box>
+            </Modal>
         </Box>
     )
 }
