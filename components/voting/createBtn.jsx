@@ -18,7 +18,6 @@ export default function CreateBtn(props) {
     const [nickname, setNickname] = useState("")
     const [handleModalOpen, setHandleModalOpen] = useState(false)
 
-    console.log("라우터", router.query.pollId)
     const nicknameChanged = (event) => {
         setNickname(event.target.value)
     }
@@ -45,7 +44,7 @@ export default function CreateBtn(props) {
         if (response?.status === "ALREADY_VOTING") {
             setHandleModalOpen(true)
         }
-        //router.push("/result/" + props.pollId)
+        router.push("/result/" + props.pollId)
     }
 
     const yesbtnClicked = async () => {

@@ -63,6 +63,7 @@ export default function ButtonAppBar(title) {
                             display: "flex",
                             flex: 3,
                             justifyContent: "flex-end",
+                            alignItems: "center",
                             marginLeft: "auto",
                         }}
                     >
@@ -108,6 +109,7 @@ export default function ButtonAppBar(title) {
                                 mr: -7,
                                 minWidth: "100px",
                                 justifyContent: "flex-end",
+                                alignItems: "center",
                                 pt: 0.8,
                             }}
                         >

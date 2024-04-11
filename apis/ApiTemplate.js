@@ -35,7 +35,7 @@ const ApiTemplate = {
                 return e.response.data
             }
 
-            return result.datas
+            return result.data
         }
 
         try {

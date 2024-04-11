@@ -14,7 +14,6 @@ export default function Option(props) {
     const responseType = props.responseType
 
     const optionClick = () => {
-        console.log("어아다", data.id, responseType)
         //단일투표 && 비활성화
         if (responseType === "SINGLE" && voted.indexOf(data.id) === -1) {
             if (voted.length >= 1) voted.pop()

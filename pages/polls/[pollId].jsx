@@ -30,10 +30,11 @@ const theme = createTheme({
 
 export default function Polls() {
     const router = useRouter()
-    let response, readCountUp
+    let response
     const { pollId } = router.query
     const [selected, setSelected] = useState([])
     const [polls, setPolls] = useState([])
+    const [isVoted, setIsVoted] = useState(false)
 
     const getData = async () => {
         response = await ApiGateway.getPoll(pollId)
@@ -43,7 +44,16 @@ export default function Polls() {
     const readCount = async () => {
         if (localStorage.getItem("accessToken") !== null) {
             response = await ApiGateway.readCount(pollId)
-            console.log("됐나요~?!?#!@?#??~!@?!@#")
+        }
+    }
+
+    const isVotedCheck = async () => {
+        if (localStorage.getItem("accessToken") !== null) {
+            const token = getToken()
+            const payload = { pollHashId: pollId }
+            const voteChecker = await ApiGateway.isVoted(payload, token)
+            console.log("리스폰스", voteChecker)
+            setIsVoted(voteChecker.data)
         }
     }
 
@@ -51,8 +61,13 @@ export default function Polls() {
         if (pollId) {
             getData()
             readCount()
+            isVotedCheck()
         }
     }, [pollId])
+
+    useEffect(() => {
+        if (isVoted) router.push(`/result/${pollId}`)
+    }, [isVoted])
 
     const [voted, setVoted] = useState([])
     return (
@@ -116,4 +131,12 @@ export default function Polls() {
 const optionAmount = (polls) => {
     if (polls.responseType === "SINGLE") return "한 개의 문항을 선택해주세요."
     return "한 개 이상의 문항을 선택해주세요."
+}
+
+function getToken() {
+    const token = localStorage.getItem("accessToken")
+
+    if (token === null) return null
+
+    return token
 }
