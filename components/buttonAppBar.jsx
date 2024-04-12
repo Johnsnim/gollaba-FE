@@ -38,6 +38,10 @@ export default function ButtonAppBar(title) {
     const LoginButtonOnClick = () => {
         router.push("/login")
     }
+
+    const LogoOnClick = () => {
+        router.push("/")
+    }
     const handleSubmit = (event) => {
         event.preventDefault()
         router.push(`/search/${inputRef.current.value}`)
@@ -48,7 +52,11 @@ export default function ButtonAppBar(title) {
             <AppBar position="fixed" color="default" sx={{ boxShadow: "none" }}>
                 <Toolbar>
                     <Box sx={{ display: "flex", flex: 1 }}>
-                        <img src={LogoImage.src} style={{ width: 50, height: "auto", marginLeft: -5, marginTop: 0 }} />
+                        <img
+                            src={LogoImage.src}
+                            onClick={LogoOnClick}
+                            style={{ width: 50, height: "auto", marginLeft: -5, marginTop: 0 }}
+                        />
                         <Typography
                             variant="h6"
                             component="div"

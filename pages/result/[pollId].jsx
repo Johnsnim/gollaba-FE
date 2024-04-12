@@ -31,7 +31,7 @@ export default function Voting() {
     const router = useRouter()
     let response
     const { pollId } = router.query
-    const [selected, setSelected] = useState([])
+    const [selected, setSelected] = useState({})
     const [polls, setPolls] = useState([])
     const [isFetch, setIsFetch] = useState(false)
 
@@ -44,14 +44,21 @@ export default function Voting() {
         response = await ApiGateway.readCount(pollId)
     }
 
+    const chosenItems = async () => {
+        const token = getToken()
+        response = await ApiGateway.chosenItem(router.query.pollId, token)
+        console.log(response.data)
+        setSelected(response.data)
+    }
+
     useEffect(async () => {
         if (pollId) {
             await getData()
             readCount()
+            chosenItems()
             setIsFetch(true)
         }
     }, [pollId])
-    const [voted, setVoted] = useState([])
 
     return (
         <ThemeProvider theme={theme}>
@@ -92,7 +99,7 @@ export default function Voting() {
                                             //justifyContent: "center",
                                         }}
                                     >
-                                        <MapOption data={polls} voted={voted} />
+                                        <MapOption data={polls} selected={selected} />
                                         <ShareBar data={polls} />
                                     </Box>
                                 </Box>
@@ -107,4 +114,11 @@ export default function Voting() {
             </Container>
         </ThemeProvider>
     )
+}
+function getToken() {
+    const token = localStorage.getItem("accessToken")
+
+    if (token === null) return null
+
+    return token
 }

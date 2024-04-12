@@ -54,6 +54,8 @@ const ApiGateway = {
     voteEdit: async (pollId, payload, token) =>
         ApiTemplate.sendApi(MethodType.PUT, `/v2/voting/${pollId}`, payload, token),
     isVoted: async (payload, token) => ApiTemplate.sendApi(MethodType.POST, `/v2/voting/check`, payload, token),
+    chosenItem: async (pollHashId, token) =>
+        ApiTemplate.sendApi(MethodType.GET, `/v2/voting/me?pollHashId=${pollHashId}`, null, token),
     updatePoll: async (pollId, payload, token) =>
         ApiTemplate.sendApi(MethodType.POST, `v1/polls/${pollId}/update`, payload, token),
     getMyPolls: async (page, limit, token) =>

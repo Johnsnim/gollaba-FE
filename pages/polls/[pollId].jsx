@@ -52,7 +52,6 @@ export default function Polls() {
             const token = getToken()
             const payload = { pollHashId: pollId }
             const voteChecker = await ApiGateway.isVoted(payload, token)
-            console.log("리스폰스", voteChecker)
             setIsVoted(voteChecker.data)
         }
     }

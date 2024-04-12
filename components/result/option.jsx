@@ -11,6 +11,7 @@ export default function Option(props) {
     let totalVoteCount = props.data.votingCount
     if (totalVoteCount === undefined) totalVoteCount = 10
 
+    console.log("프롭스", props)
     const ratio = (props.voted.length / totalVoteCount) * 100
 
     return (
