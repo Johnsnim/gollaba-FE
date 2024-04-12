@@ -15,11 +15,14 @@ const EXPIRED_ACCESS_TOKEN = "액세스 토큰이 만료되었습니다."
 const ApiTemplate = {
     sendApi: async (method, url, body, token) => {
         let result = null
-        const authorizationHeader = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }
+        const authorizationHeader =
+            token !== null
+                ? {
+                      headers: {
+                          Authorization: `Bearer ${token}`,
+                      },
+                  }
+                : {}
 
         if (body) {
             try {

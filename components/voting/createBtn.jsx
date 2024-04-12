@@ -24,7 +24,8 @@ export default function CreateBtn(props) {
 
     const btnClicked = async () => {
         const token = getToken()
-        const { uid } = jwt_decode(token)
+        const uid = token !== null ? jwt_decode(token).uid : undefined
+        if (token === null) console.log("우웅")
 
         const payload = {
             pollHashId: router.query.pollId,
@@ -41,9 +42,11 @@ export default function CreateBtn(props) {
             }
             return
         }
+        /*
         if (response?.status === "ALREADY_VOTING") {
             setHandleModalOpen(true)
         }
+        */
         router.push("/result/" + props.pollId)
     }
 
