@@ -14,6 +14,8 @@ import InfoBox from "../../components/result/infoBox"
 import { useRouter } from "next/router"
 import ApiGateway from "../../apis/ApiGateway"
 import ShareBar from "../../components/result/shareBar"
+import removeBtn from "../../components/result/revoteBtn"
+import RevoteBtn from "../../components/result/revoteBtn"
 
 const theme = createTheme({
     palette: {
@@ -28,12 +30,18 @@ const theme = createTheme({
 })
 
 export default function Voting() {
-    const router = useRouter()
-    let response
-    const { pollId } = router.query
     const [selected, setSelected] = useState({})
     const [polls, setPolls] = useState([])
     const [isFetch, setIsFetch] = useState(false)
+    const router = useRouter()
+    let response
+    let { pollId } = router.query
+    let isVoted = false
+
+    if (pollId !== undefined && pollId.includes("&")) {
+        pollId = pollId.split("&")[0]
+        isVoted = true
+    }
 
     const getData = async () => {
         response = await ApiGateway.getPoll(pollId)
@@ -100,6 +108,12 @@ export default function Voting() {
                                         }}
                                     >
                                         <MapOption data={polls} selected={selected} />
+                                        {isVoted === true && (
+                                            <>
+                                                <RevoteBtn />
+                                            </>
+                                        )}
+
                                         <ShareBar data={polls} />
                                     </Box>
                                 </Box>

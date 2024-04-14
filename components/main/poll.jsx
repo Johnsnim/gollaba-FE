@@ -47,9 +47,18 @@ export default function Poll(props) {
         )
     })
 
-    const buttonClick = () => {
+    const buttonClick = async () => {
+        if (today > date) router.push(`/result/${props.data.id}`)
+
+        const token = localStorage.getItem("accessToken")
+        if (token === null) router.push(`/polls/${props.data.id}`)
+
+        const payload = { pollHashId: props.data.id }
+        const response = await ApiGateway.isVoted(payload, token)
         {
-            today < date ? router.push(`/polls/${props.data.id}`) : router.push(`/result/${props.data.id}`)
+            response.data
+                ? router.push(`/result/${props.data.id}&isVoted=true`)
+                : router.push(`/polls/${props.data.id}`)
         }
     }
 

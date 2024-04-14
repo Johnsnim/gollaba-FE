@@ -32,7 +32,7 @@ export default function Mypolls(props) {
     const getData = async () => {
         if (reachMaxPoll === true) return
         setIsLoading(true)
-        response = await ApiGateway.getMyPolls(offset, limit, token) // 아직 안만들어짐
+        response = await ApiGateway.getMyPolls(offset, limit, token)
         if (response.status !== "SUCCESS") {
             setReachMaxPoll(true)
             return

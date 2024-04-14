@@ -34,7 +34,6 @@ export default function Polls() {
     const { pollId } = router.query
     const [selected, setSelected] = useState([])
     const [polls, setPolls] = useState([])
-    const [isVoted, setIsVoted] = useState(false)
 
     const getData = async () => {
         response = await ApiGateway.getPoll(pollId)
@@ -47,26 +46,12 @@ export default function Polls() {
         }
     }
 
-    const isVotedCheck = async () => {
-        if (localStorage.getItem("accessToken") !== null) {
-            const token = getToken()
-            const payload = { pollHashId: pollId }
-            const voteChecker = await ApiGateway.isVoted(payload, token)
-            setIsVoted(voteChecker.data)
-        }
-    }
-
     useEffect(() => {
         if (pollId) {
             getData()
             readCount()
-            isVotedCheck()
         }
     }, [pollId])
-
-    useEffect(() => {
-        if (isVoted) router.push(`/result/${pollId}`)
-    }, [isVoted])
 
     const [voted, setVoted] = useState([])
     return (
