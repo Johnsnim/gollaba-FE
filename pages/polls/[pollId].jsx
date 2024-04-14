@@ -31,9 +31,15 @@ const theme = createTheme({
 export default function Polls() {
     const router = useRouter()
     let response
-    const { pollId } = router.query
+    let { pollId } = router.query
     const [selected, setSelected] = useState([])
     const [polls, setPolls] = useState([])
+    let isVoted = false
+
+    if (pollId !== undefined && pollId.includes("&")) {
+        pollId = pollId.split("&")[0]
+        isVoted = true
+    }
 
     const getData = async () => {
         response = await ApiGateway.getPoll(pollId)

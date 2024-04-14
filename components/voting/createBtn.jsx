@@ -13,7 +13,6 @@ import Button from "@mui/material/Button"
 const label = { inputProps: { "aria-label": "Checkbox demo" } }
 
 export default function CreateBtn(props) {
-    console.log(props)
     const router = useRouter()
     const [nickname, setNickname] = useState("")
     const [handleModalOpen, setHandleModalOpen] = useState(false)
@@ -22,10 +21,29 @@ export default function CreateBtn(props) {
         setNickname(event.target.value)
     }
 
+    let { pollId } = router.query
+
     const btnClicked = async () => {
         const token = getToken()
         const uid = token !== null ? jwt_decode(token).uid : undefined
-        if (token === null) console.log("우웅")
+
+        if (pollId !== undefined && pollId.includes("&")) {
+            pollId = pollId.split("&")[0]
+            const payload = {
+                pollItemIds: props.voted,
+                voterName: nickname.length !== 0 ? nickname : "익명",
+            }
+
+            const response = await ApiGateway.voteEdit(pollId, payload, token)
+            if (response?.error) {
+                alert(response.message)
+                if (response.code === 20004) {
+                    // router.push("/result/" + props.pollId)
+                }
+                return
+            }
+            router.push("/result/" + pollId + "&isVoted=true")
+        }
 
         const payload = {
             pollHashId: router.query.pollId,
@@ -42,12 +60,7 @@ export default function CreateBtn(props) {
             }
             return
         }
-        /*
-        if (response?.status === "ALREADY_VOTING") {
-            setHandleModalOpen(true)
-        }
-        */
-        router.push("/result/" + props.pollId)
+        router.push("/result/" + props.pollId + "&isVoted=true")
     }
 
     const yesbtnClicked = async () => {

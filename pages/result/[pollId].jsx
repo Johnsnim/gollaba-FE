@@ -45,6 +45,7 @@ export default function Voting() {
 
     const getData = async () => {
         response = await ApiGateway.getPoll(pollId)
+        console.log("반드시쳌,", response)
         setPolls(response.data)
     }
 
