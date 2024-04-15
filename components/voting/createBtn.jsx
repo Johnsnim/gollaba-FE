@@ -33,8 +33,12 @@ export default function CreateBtn(props) {
                 pollItemIds: props.voted,
                 voterName: nickname.length !== 0 ? nickname : "익명",
             }
+            const isVoted = await ApiGateway.chosenItem(pollId, token)
 
-            const response = await ApiGateway.voteEdit(pollId, payload, token)
+            console.log("이즈보티드", isVoted)
+
+            const response = await ApiGateway.voteEdit(isVoted.data.id, payload, token)
+            console.log("리스폰스", response)
             if (response?.error) {
                 alert(response.message)
                 if (response.code === 20004) {
@@ -43,6 +47,7 @@ export default function CreateBtn(props) {
                 return
             }
             router.push("/result/" + pollId + "&isVoted=true")
+            return
         }
 
         const payload = {
