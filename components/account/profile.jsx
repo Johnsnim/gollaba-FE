@@ -21,10 +21,12 @@ export default function Profile() {
     const PROFILE_BASIC = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
 
     const showUser = async () => {
-        if (!token.current || !userId.current) return
+        console.log("체크")
+        //if (!token.current || !userId.current) return
 
         const userInfo = await ApiGateway.showUser(userId.current, token.current)
         setData(userInfo)
+        console.log("유저인포", userInfo)
     }
     useEffect(() => {
         token.current = localStorage.getItem("accessToken")
@@ -37,8 +39,8 @@ export default function Profile() {
 
     //Profile, Background Image 변경
     const profileImageSrc = () => {
-        if (data?.profileImageUrl == null) return PROFILE_BASIC
-        return data?.profileImageUrl
+        if (data?.data.profileImageUrl == null) return PROFILE_BASIC
+        return data?.data.profileImageUrl
     }
     const backgroundImageSrc = () => {
         if (data?.backgroundImageUrl == null) return BACKGROUND_BASIC
@@ -200,7 +202,7 @@ export default function Profile() {
                         }}
                     >
                         <Box sx={{ pl: 4 }}>
-                            {data?.nickName}
+                            {data?.data.name}
                             <IconButton
                                 aria-label="edit"
                                 onClick={() => {
