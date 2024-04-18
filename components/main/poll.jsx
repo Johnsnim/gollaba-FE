@@ -48,7 +48,10 @@ export default function Poll(props) {
     })
 
     const buttonClick = async () => {
-        if (today > date) router.push(`/result/${props.data.id}`)
+        if (today > date) {
+            router.push(`/result/${props.data.id}`)
+            return
+        }
 
         const token = localStorage.getItem("accessToken")
         if (token === null) router.push(`/polls/${props.data.id}`)
@@ -310,6 +313,7 @@ export default function Poll(props) {
                                     borderRadius: "5px",
                                     marginBottom: 0,
                                     height: 35,
+                                    cursor: "pointer",
                                 }}
                             >
                                 투표하기

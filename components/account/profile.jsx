@@ -90,11 +90,13 @@ export default function Profile() {
         if (!token.current) return
 
         const formData = new FormData()
-        formData.append("nickName", nickName)
-        formData.append("updateType", "NICKNAME")
-        const nickChange = await ApiGateway.updateForm(formData, token.current)
+        formData.append("name", nickName)
+        formData.append("profileImage", data.data?.profileImageUrl)
+        formData.append("backgroundImage", data.data?.backgroundImageUrl)
+
+        const nickChange = await ApiGateway.updateUser(formData, token.current)
         setData(nickChange)
-        location.reload()
+        //location.reload()
     }
 
     // 배경화면 스타일 CSS
