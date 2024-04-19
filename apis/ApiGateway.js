@@ -61,7 +61,7 @@ const ApiGateway = {
     getMyPolls: async (page, limit, token) =>
         ApiTemplate.sendApi(MethodType.GET, `/v2/polls/me?page=${page}&size=${limit}`, null, token),
     topPolls: async (token) => ApiTemplate.sendApi(MethodType.GET, `/v2/polls/top?limit=10`, null, token),
-    trendingPolls: async (token) => ApiTemplate.sendApi(MethodType.GET, `/v2/polls/trending&limit=20`, null, token),
+    trendingPolls: async (token) => ApiTemplate.sendApi(MethodType.GET, `/v2/polls/trending?limit=20`, null, token),
     // User Controller
     signupForm: async (formData) => ApiTemplate.sendApiMultiPart(MethodType.POST, `v1/signup`, formData),
     showUser: async (userId, token) => ApiTemplate.sendApi(MethodType.GET, `/v2/users/me`, null, token),

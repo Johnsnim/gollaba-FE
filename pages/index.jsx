@@ -37,11 +37,10 @@ export default function Main() {
         topTenResponse = await ApiGateway.topPolls()
         setTopTenPolls([...topTenPolls, ...topTenResponse.data])
 
-        /*
         trendingResponse = await ApiGateway.trendingPolls()
-        console.log("트렌딩", trendingResponse)
+        console.log("트렌딩", trendingPolls)
         setTrendingPolls([...trendingPolls, ...trendingResponse.data])
-*/
+
         response = await ApiGateway.getPolls(offset, limit)
         //setPolls((prevPolls) => [...prevPolls, response.data.polls])
         setPolls([...polls, ...response.data.items])
@@ -51,6 +50,7 @@ export default function Main() {
             const favorites = await ApiGateway.getFavorites(token)
             setFavoritesData(favorites)
         }
+        return
     }
 
     useEffect(() => {
@@ -88,10 +88,8 @@ export default function Main() {
                         }}
                     >
                         <TopTen data={topTenPolls} menuTitle={"Ongoing Polls"} />
-
-                        {/*
                         <OngoingPolls data={trendingPolls} menuTitle={"New Results!"} />
-                         */}
+
                         <WholeView data={polls} favorites={favoritesData} />
                     </Box>
 

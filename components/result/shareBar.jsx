@@ -46,7 +46,7 @@ export default function ShareBar(props) {
 
         Kakao.Share.sendDefault({
             objectType: "list",
-            headerTitle: props.data.data.title,
+            headerTitle: props.data.title,
             headerLink: {
                 mobileWebUrl: "https://www.gollaba.net/",
                 webUrl: "https://www.gollaba.net/",

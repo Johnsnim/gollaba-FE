@@ -55,6 +55,7 @@ export default function Voting() {
 
     const chosenItems = async () => {
         const token = getToken()
+        if (token === null) return
         response = await ApiGateway.chosenItem(router.query.pollId, token)
         console.log(response.data)
         setSelected(response.data)
