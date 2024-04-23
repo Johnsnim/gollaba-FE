@@ -47,6 +47,8 @@ export default function ButtonAppBar(title) {
         router.push(`/search/${inputRef.current.value}`)
     }
 
+    console.log("유저인포", userInfo)
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="fixed" color="default" sx={{ boxShadow: "none" }}>
@@ -118,14 +120,13 @@ export default function ButtonAppBar(title) {
                                 minWidth: "100px",
                                 justifyContent: "flex-end",
                                 alignItems: "center",
-                                pt: 0.8,
                             }}
                         >
                             {userInfo ? (
                                 <Box className="IconButton" onClick={IconButtonOnClick}>
                                     <Avatar
-                                        src={userInfo.profileImageUrl}
-                                        sx={{ width: 40, height: 40, border: "5px soild black" }}
+                                        src={userInfo.data.profileImageUrl}
+                                        sx={{ width: 45, height: 45, border: "5px soild black" }}
                                     />
                                 </Box>
                             ) : (

@@ -65,6 +65,9 @@ const ApiGateway = {
     // User Controller
     signupForm: async (formData) => ApiTemplate.sendApiMultiPart(MethodType.POST, `v1/signup`, formData),
     showUser: async (userId, token) => ApiTemplate.sendApi(MethodType.GET, `/v2/users/me`, null, token),
+    changeName: async (payload, token) => ApiTemplate.sendApi(MethodType.PUT, `/v2/users`, payload, token),
+    changeImage: async (payload, token) =>
+        ApiTemplate.sendApiMultiPart(MethodType.POST, `v2/users/change-profile`, payload, token),
     updateUser: async (payload, token) => ApiTemplate.sendApiMultiPart(MethodType.PUT, `v2/users`, payload, token),
     readCount: async (pollId) => ApiTemplate.sendApiMultiPart(MethodType.POST, `/v2/polls/${pollId}/read`),
 }

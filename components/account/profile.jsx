@@ -30,6 +30,7 @@ export default function Profile() {
     }
     useEffect(() => {
         token.current = localStorage.getItem("accessToken")
+        console.log(token.current, "토큰")
 
         userId.current = jwt_decode(token.current).id
     }, [])
@@ -62,11 +63,12 @@ export default function Profile() {
         const photoToAdd = e.target.files[0]
 
         const formData = new FormData()
-        formData.append("profileImage", photoToAdd)
-        formData.append("updateType", "PROFILE_IMAGE")
+        formData.append("image", photoToAdd)
+        //formData.append("updateType", "PROFILE_IMAGE")
 
-        const profileChange = await ApiGateway.updateForm(formData, token.current)
+        const profileChange = await ApiGateway.changeImage(formData, token.current)
         setData(profileChange)
+        console.log(profileChange)
     }
     const changeBackground = async (e) => {
         if (!token.current) return
@@ -89,14 +91,13 @@ export default function Profile() {
     const changeNickname = async () => {
         if (!token.current) return
 
-        const formData = new FormData()
-        formData.append("name", nickName)
-        formData.append("profileImage", data.data?.profileImageUrl)
-        formData.append("backgroundImage", data.data?.backgroundImageUrl)
+        const payload = {
+            name: nickName,
+        }
 
-        const nickChange = await ApiGateway.updateUser(formData, token.current)
+        const nickChange = await ApiGateway.changeName(payload, token.current)
         setData(nickChange)
-        //location.reload()
+        location.reload()
     }
 
     // 배경화면 스타일 CSS
