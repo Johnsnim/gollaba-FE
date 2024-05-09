@@ -70,6 +70,7 @@ export default function WholeView({ data, favorites }) {
                             boxShadow: "0 0 5px 1px rgba(0,0,0,0.055)",
                         }}
                     >
+                        {/*
                         <form onSubmit={handleSubmit}>
                             <button type="submit" style={{ backgroundColor: "transparent", border: "none" }}>
                                 🔍
@@ -81,6 +82,7 @@ export default function WholeView({ data, favorites }) {
                                 ref={inputRef}
                             />
                         </form>
+                    */}
                     </Box>
                 </Box>
 
