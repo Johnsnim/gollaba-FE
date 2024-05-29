@@ -7,6 +7,8 @@
         "dev:prod": "env-cmd -f .env.production next dev",
         "https": "node local_https.js",
         "build": "next build",
+        "build:dev": "env-cmd -f .env.development next build",
+        "build:prod": "env-cmd -f .env.production next build",
         "start": "next start",
         "lint": "next lint",
         "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest",
