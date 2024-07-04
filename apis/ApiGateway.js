@@ -63,7 +63,7 @@ const ApiGateway = {
     topPolls: async (token) => ApiTemplate.sendApi(MethodType.GET, `/v2/polls/top?limit=10`, null, token),
     trendingPolls: async (token) => ApiTemplate.sendApi(MethodType.GET, `/v2/polls/trending?limit=20`, null, token),
     // User Controller
-    signupForm: async (formData) => ApiTemplate.sendApiMultiPart(MethodType.POST, `v1/signup`, formData),
+    signupForm: async (formData) => ApiTemplate.sendApiMultiPart(MethodType.POST, `v2/signup`, formData),
     showUser: async (userId, token) => ApiTemplate.sendApi(MethodType.GET, `/v2/users/me`, null, token),
     changeName: async (payload, token) => ApiTemplate.sendApi(MethodType.PUT, `/v2/users`, payload, token),
     changeImage: async (payload, token) =>
