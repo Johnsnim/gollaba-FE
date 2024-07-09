@@ -60,7 +60,7 @@ const ApiTemplate = {
         const authorizationHeader = {
             headers: {
                 "Content-Type": "multipart/form-data",
-                Authorization: `Bearer ${token}`,
+                ...(token && { Authorization: `Bearer ${token}` }),
             },
         }
 
