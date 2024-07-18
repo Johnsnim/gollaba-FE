@@ -57,7 +57,7 @@ const ApiGateway = {
     chosenItem: async (pollHashId, token) =>
         ApiTemplate.sendApi(MethodType.GET, `/v2/voting/me?pollHashId=${pollHashId}`, null, token),
     updatePoll: async (pollId, payload, token) =>
-        ApiTemplate.sendApi(MethodType.POST, `v1/polls/${pollId}/update`, payload, token),
+        ApiTemplate.sendApi(MethodType.POST, `v2/polls/${pollId}/update`, payload, token),
     getMyPolls: async (page, limit, token) =>
         ApiTemplate.sendApi(MethodType.GET, `/v2/polls/me?page=${page}&size=${limit}`, null, token),
     topPolls: async (token) => ApiTemplate.sendApi(MethodType.GET, `/v2/polls/top?limit=10`, null, token),

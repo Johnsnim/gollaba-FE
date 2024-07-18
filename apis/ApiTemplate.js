@@ -17,13 +17,18 @@ const ApiTemplate = {
     sendApi: async (method, url, body, token) => {
         let result = null
         const authorizationHeader =
-            token !== null
+            token !== undefined
                 ? {
                       headers: {
                           Authorization: `Bearer ${token}`,
+                          "Content-Type": "application/json",
                       },
                   }
-                : {}
+                : {
+                      headers: {
+                          "Content-Type": "application/json",
+                      },
+                  }
 
         if (body) {
             try {
