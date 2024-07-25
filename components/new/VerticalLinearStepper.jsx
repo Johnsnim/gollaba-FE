@@ -112,7 +112,7 @@ export default function VerticalLinearStepper() {
         const defaultEndedAt = new Date(currentTimestamp + 1000 * 60 * 60 * 24 * 7).toISOString()
 
         let formattedDate = expireRef.current.toISOString().slice(0, 19)
-        console.log("수정된날짜", formattedDate)
+
         const payload = {
             title: titleRef.current.value,
             creatorName: nameRef.current.value,

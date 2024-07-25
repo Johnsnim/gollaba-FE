@@ -39,13 +39,13 @@ const ApiGateway = {
     deleteFavorite: async (payload, token) => ApiTemplate.sendApi(MethodType.DELETE, `v2/favorites`, payload, token),
     getFavorites: async (token) => ApiTemplate.sendApi(MethodType.GET, `v2/favorites/me`, null, token),
     // Poll Controller
-    createPoll: async (payload, token) => ApiTemplate.sendApiMultiPart(MethodType.POST, "/v2/polls", payload, token),
+    createPoll: async (payload, token) => ApiTemplate.sendApi(MethodType.POST, "/v2/polls", payload, token),
     getPolls: async (page, limit, token) =>
         ApiTemplate.sendApi(MethodType.GET, `/v2/polls?page=${page}&size=${limit}`, null, token),
     searchPolls: async (offset, limit, title, token) =>
         ApiTemplate.sendApi(
             MethodType.GET,
-            `/v1/polls?limit=${limit}&offset=${offset * 15}&title=${title}`,
+            `/v2/polls?limit=${limit}&offset=${offset * 15}&title=${title}`,
             null,
             token
         ),
